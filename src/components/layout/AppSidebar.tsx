@@ -1,5 +1,7 @@
-import { LayoutDashboard, CreditCard, Wallet, TrendingUp, FileText, Settings, Upload, ChevronRight } from "lucide-react";
+import { LayoutDashboard, CreditCard, Wallet, TrendingUp, FileText, Settings, Upload, ChevronRight, LogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +13,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   useSidebar,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import logo from "@/assets/logo.png";
 
@@ -57,6 +60,7 @@ const secondaryItems = [
 
 export function AppSidebar() {
   const { open } = useSidebar();
+  const { signOut } = useAuth();
 
   return (
     <Sidebar className="border-r border-sidebar-border">
@@ -140,6 +144,17 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="border-t border-sidebar-border p-4">
+        <Button
+          onClick={signOut}
+          variant="ghost"
+          className="w-full justify-start text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent"
+        >
+          <LogOut className="h-5 w-5 mr-3" />
+          {open && <span>Sair</span>}
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }
